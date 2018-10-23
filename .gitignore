@@ -33,6 +33,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+/api-keys.js
 
 # System Files
 .DS_Store

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class HeaderComponent implements OnInit {
-  constructor() { }
-  
+  title = 'MOVIE TRACKER';
+  name: string;
+
+  constructor(private user: UserService) { }
+
   ngOnInit() {
+    this.user.getUser().subscribe(user => {
+        this.name = user.name;
+      });
   }
-  title = 'MOVIE TRACKER'
-  name = 'Kiel'
 }
 
