@@ -11,6 +11,17 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  // public getUser(individual): any {
+  //   return this.http.get('http://localhost:3000/api/users/', {})
+  //     .pipe(
+  //       map(user => {
+  //         return const userData = user['data'].filter(dude => {
+  //           return dude.name === individual;
+  //         });
+  //       })
+  //     );
+  // }
+
   public getUser(): any {
     return this.http.get('http://localhost:3000/api/users/', {})
       .pipe(
