@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgModel } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-login',
@@ -9,14 +11,28 @@ import { NgModel } from '@angular/forms';
 })
 
 export class LoginComponent implements OnInit {
-  login: string;
-  // whatever = 'Zane sucks';
-  constructor(private router: Router) { }
+  loggedInUser = {};
+  userName: String;
+  userPassword: String;
+
+  constructor(private router: Router, private user: UserService) { }
 
   ngOnInit() {
   }
 
-  goElsewhere() {
-    this.router.navigate(['/home']);
+  handleLogin() {
+    this.user.getUser(this.userName, this.userPassword).subscribe(user => {
+      if (user) {
+        this.router.navigate(['/home']);
+      } else {
+        this.userName = '';
+        this.userPassword = '';
+        alert('User name or password are not valid');
+      }
+    });
+  }
+
+  routeToSignUp() {
+    this.router.navigate(['/sign-up']);
   }
 }

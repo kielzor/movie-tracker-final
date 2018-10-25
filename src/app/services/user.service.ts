@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -8,26 +8,34 @@ import { catchError, map } from 'rxjs/operators';
 })
 
 export class UserService {
+  currentUser = new BehaviorSubject({});
+  getCurrentUser = this.currentUser.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  // public getUser(individual): any {
-  //   return this.http.get('http://localhost:3000/api/users/', {})
-  //     .pipe(
-  //       map(user => {
-  //         return const userData = user['data'].filter(dude => {
-  //           return dude.name === individual;
-  //         });
-  //       })
-  //     );
-  // }
-
-  public getUser(): any {
+  public getUser(name, password): any {
     return this.http.get('http://localhost:3000/api/users/', {})
       .pipe(
-        map(user => {
-          return user['data'][0];
+        map(users => {
+          const currentUser = users['data'].find(user => {
+            return (user.name === name && user.password === password);
+          });
+          if (currentUser) {
+            this.currentUser.next(currentUser);
+            return true;
+          }
         })
+      );
+  }
+
+  public addUser(name, email, password): any {
+    return this.http.post('http://localhost:3000/api/users/new',
+      { name, email, password })
+      .pipe(
+        map(res => {
+          return res;
+        }),
+        catchError(err => alert('Invalid Entry'))
       );
   }
 }

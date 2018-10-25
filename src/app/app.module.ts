@@ -8,8 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 
-import { appRoutes } from '../app/app.routing';
+import { appRoutes } from './app.routing';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { FormsModule } from '@angular/forms';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     HeaderComponent,
     CardContainerComponent,
     LoginComponent,
-    NavBarComponent
+    NavBarComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

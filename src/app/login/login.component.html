@@ -1,4 +1,10 @@
-<!-- <input type="text" placeholder="Zane RULES" [(ngModel)]="login"> -->
-<!-- <input type="text" [placeholder]="whatever"> -->
-<button (click)="goElsewhere()">Go to splash</button>
-
+<div class='login-spacing'>
+  <div class='login-container'>
+    <h1>Login to view movies</h1>
+    <input type='text' [(ngModel)]='userName' placeholder="Name">
+    <input  type='text' [(ngModel)]='userPassword' placeholder="Password">
+    <button (click)="handleLogin()">Login</button>
+    <button (click)="routeToSignUp()">Sign Up</button>
+    <p>Don't have an account?</p>
+  </div>
+</div>

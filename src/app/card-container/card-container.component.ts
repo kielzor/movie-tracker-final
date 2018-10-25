@@ -11,12 +11,12 @@ import { MoviesService } from '../services/movies.service';
 export class CardContainerComponent implements OnInit {
   cards: Array<{}>;
 
-  constructor(private nowPlaying: MoviesService) { }
+  constructor(private moviesService: MoviesService) { }
 
   ngOnInit() {
-    this.nowPlaying.getMovies('now_playing').subscribe(movie => {
+    this.moviesService.getMovies('now_playing');
+    this.moviesService.getCurrentMovies.subscribe(movie => {
       this.cards = movie;
-      console.log(this.cards);
     });
   }
 

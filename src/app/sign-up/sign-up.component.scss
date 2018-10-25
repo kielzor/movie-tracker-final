@@ -1,11 +1,11 @@
-.login-spacing {
+.sign-up-spacing {
   height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.login-container {
+.sign-up-container {
   height: 40rem;
   width: 30rem;
   border: 3px solid grey;
@@ -14,20 +14,21 @@
   align-items: center;
 }
 
-.login-container h1 {
+.sign-up-container h1 {
   font-size: 50px;
   margin: 3rem 0 8rem 0;
 }
 
-.login-container input {
+.sign-up-container input {
   margin-top: 2rem;
   height: 2rem;
   width: 75%;
 }
 
-.login-container button {
+.sign-up-container button {
   margin-top: 2rem;
   height: 2rem;
   width: 75%;
   cursor: pointer;
 }
+
