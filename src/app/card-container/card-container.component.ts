@@ -21,6 +21,7 @@ export class CardContainerComponent implements OnInit {
           this.moviesService.currentMovies.next(movies.results);
         }
       );
+
     this.moviesService.getCurrentMovies.subscribe(movie => {
       this.cards = movie;
     });
