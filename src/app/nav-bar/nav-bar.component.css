@@ -1,4 +1,31 @@
+.nav-bar {
+  display: flex;
+  background-color: black;
+  justify-content: space-around;
+}
+
 .nav-container {
   display: flex;
   justify-content: center;
+  padding-bottom: 4rem;
+}
+
+.hidden-nav-btn {
+  visibility: hidden;
+}
+
+.nav-bar button {
+  height: 1.5rem;
+  width: 7rem;
+  border-radius: 10%;
+  outline: none;
+}
+
+.nav-bar button:hover {
+  cursor: pointer;
+  background-color: #fed681;
+}
+
+.nav-bar button.selected {
+  background-color: #cb931a;
 }

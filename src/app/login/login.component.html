@@ -2,7 +2,7 @@
   <div class='login-container'>
     <h1>Login to view movies</h1>
     <input type='text' [(ngModel)]='userName' placeholder="Name">
-    <input  type='text' [(ngModel)]='userPassword' placeholder="Password">
+    <input  type='password' [(ngModel)]='userPassword' placeholder="Password">
     <button (click)="handleLogin()">Login</button>
     <button (click)="routeToSignUp()">Sign Up</button>
     <p>Don't have an account?</p>

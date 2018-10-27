@@ -2,8 +2,8 @@
   <div class='sign-up-container'>
     <h1>Sign Up</h1>
     <input type="text" [(ngModel)]='newUserName' placeholder='Username'>
-    <input type="text" [(ngModel)]='newUserEmail' placeholder='Email'>
-    <input type="text" [(ngModel)]='newUserPassword' placeholder='Password'>
+    <input type="email" [(ngModel)]='newUserEmail' placeholder='Email'>
+    <input type="password" [(ngModel)]='newUserPassword' placeholder='Password'>
     <button (click)="handleSignup()">Sign Up</button>
     <button (click)="backToLogin()">Cancel</button>
   </div>

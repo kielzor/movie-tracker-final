@@ -21,8 +21,13 @@ export class LoginComponent implements OnInit {
   }
 
   handleLogin() {
-    this.user.getUser(this.userName, this.userPassword).subscribe(user => {
-      if (user) {
+    this.user.getUser(this.userName, this.userPassword).subscribe(users => {
+      const currentUser = users['data'].find(user => {
+        return (user.name === this.userName && user.password === this.userPassword);
+      });
+
+      if (currentUser) {
+        this.user.currentUser.next(currentUser);
         this.router.navigate(['/home']);
       } else {
         this.userName = '';

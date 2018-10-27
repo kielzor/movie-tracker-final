@@ -12,6 +12,9 @@ import { appRoutes } from './app.routing';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { DataService } from './services/data.service';
+import { UserService } from './services/user.service';
+import { MoviesService } from './services/movies.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,11 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     RouterModule.forRoot(appRoutes),
     FormsModule
   ],
-  providers: [],
+  providers: [
+    DataService,
+    UserService,
+    MoviesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

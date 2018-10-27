@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../services/movies.service';
+import { MoviesService  } from '../services/movies.service';
 import { CardContainerComponent } from '../card-container/card-container.component';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,14 +9,26 @@ import { CardContainerComponent } from '../card-container/card-container.compone
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  cards: Array<{}>;
+  cards: [];
+  selectedType: string;
 
-  constructor(private displayedMovies: MoviesService) { }
+  constructor(private moviesService: MoviesService, private user: UserService) { }
 
   ngOnInit() {
+    this.selectedType = 'now_playing';
   }
 
-  handleMovieType(type) {
-    this.displayedMovies.getMovies(type);
+  handleMovieType(type): any {
+    this.selectedType = type;
+
+    if (type === 'favorites') {
+      this.user.getFavorites();
+      return;
+    }
+
+    this.moviesService.getMovies(type)
+      .subscribe(movies => {
+        this.moviesService.currentMovies.next(movies.results);
+      });
   }
 }
