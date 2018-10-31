@@ -22,9 +22,10 @@ export class DataService {
     return this.http.post(url, body, headers)
       .pipe(
         map(res => {
+          console.log('response', res);
           return res;
         }),
-        catchError(err => alert('Invalid Entry'))
+        catchError(err => console.log('Invalid Entry'))
       );
   }
 }

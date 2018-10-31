@@ -1,6 +1,7 @@
 <div class='card-spacing'>
   <div class='card-container' *ngFor='let card of cards'>
     <h1>{{ card['title'] }}</h1>
+    <img src="{{ card['poster_path'] }}" alt="">
     <p>{{ card['release_date'] }}</p>
     <p>{{ card['overview'] }}</p>
     <p>Rating: {{ card['vote_average'] }}</p>

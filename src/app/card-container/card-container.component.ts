@@ -18,6 +18,7 @@ export class CardContainerComponent implements OnInit {
   ngOnInit() {
     this.moviesService.getMovies('now_playing')
       .subscribe(movies => {
+        movies.results.map(movie => movie.poster_path = `https://image.tmdb.org/t/p/w200${movie.poster_path}`);
           this.moviesService.currentMovies.next(movies.results);
         }
       );
@@ -28,6 +29,15 @@ export class CardContainerComponent implements OnInit {
   }
 
   handleClick(card) {
-    this.user.addFavorite(card);
+    this.user.getFavorites()
+    .subscribe(movies => {
+      const match = movies.data.find(movie => movie.id === card.id);
+
+      if (match) {
+        this.user.deleteFavorite(card);
+      } else {
+        this.user.addFavorite(card);
+      }
+    });
   }
 }

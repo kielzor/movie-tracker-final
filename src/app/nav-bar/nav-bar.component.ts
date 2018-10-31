@@ -8,8 +8,9 @@ import { UserService } from '../services/user.service';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
+
 export class NavBarComponent implements OnInit {
-  cards: [];
+  // cards: [];
   selectedType: string;
 
   constructor(private moviesService: MoviesService, private user: UserService) { }
@@ -19,15 +20,23 @@ export class NavBarComponent implements OnInit {
   }
 
   handleMovieType(type): any {
-    this.selectedType = type;
-
     if (type === 'favorites') {
-      this.user.getFavorites();
+      this.user.getFavorites()
+      .subscribe(movies => {
+        if (movies.data) {
+          this.moviesService.currentMovies.next(movies.data);
+        } else {
+          alert('You do not have any favorites');
+        }
+      });
       return;
     }
 
+    this.selectedType = type;
+
     this.moviesService.getMovies(type)
       .subscribe(movies => {
+        movies.results.map(movie => movie.poster_path = `https://image.tmdb.org/t/p/w200${movie.poster_path}`);
         this.moviesService.currentMovies.next(movies.results);
       });
   }
