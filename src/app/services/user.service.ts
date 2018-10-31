@@ -35,16 +35,11 @@ export class UserService extends DataService {
   }
 
   public addFavorite(movie): any {
-    console.log('add', movie)
     const { id, title, poster_path, release_date, vote_average, overview } = movie;
-    const user_id = 145;
     const movie_id = id;
-    vote_average = JSON.stringify(vote_average);
-    // const user_id = this.currentUser.value['id'];
-    // console.log(movie_id, user_id, title, poster_path, release_date, vote_average, overview)
+    const user_id = this.currentUser.value['id'];
 
-    return super.post('http://localhost:3000/api/users/favorites/new',
-      JSON.stringify({
+    return super.post('http://localhost:3000/api/users/favorites/new', {
         movie_id,
         user_id,
         title,
@@ -52,47 +47,28 @@ export class UserService extends DataService {
         release_date,
         vote_average,
         overview
+    })
+      .subscribe(res => {
+        return res;
       }),
-    //   {
-    //     "movie_id": 497,
-    //      "user_id": 1,
-    //      "title": "The Green Mile",
-    //      "poster_path": "https://image.tmdb.org/t/p/w200/sOHqdY1RnSn6kcfAHKu28jvTebE.jpg",
-    //      "release_date": "1999-12-10",
-    //      "vote_average": "8.4",
-    //      "overview": "A supernatural tale set on death row in a Southern prison, where gentle giant John Coffey possesses the mysterious power to heal people's ailments. When the cell block's head guard, Paul Edgecomb, recognizes Coffey's miraculous gift, he tries desperately to help stave off the condemned man's execution."
-    //  },
-     { 'Content-Type': 'application/json' }
-      )
-      .pipe(
-        map(res => {
-          return res;
-        }),
+      catchError(err => of(err)
       );
   }
 
   public deleteFavorite(movie): any {
-    console.log('delete', movie.movie_id);
-    // const user_id = this.currentUser.value['id'];
-    const user_id = 1;
+    const user_id = this.currentUser.value['id'];
     const movie_id = movie.movie_id;
-    return super.delete(`http://localhost:3000/api/users/${user_id}/favorites/${movie_id}`,
-    {
-      user_id,
-      movie_id
-    },
-    {
-      'Content-Type': 'application/json'
-    })
-    .pipe(
+
+    return super.delete(`http://localhost:3000/api/users/${user_id}/favorites/${movie_id}`, {})
+      .subscribe(res => {
+        return res;
+      }),
       catchError(err => of(err)
-      )
-    );
+      );
   }
 
   public getFavorites(): any {
-    // const user_id = this.currentUser.value['id'];
-    const user_id = 1;
+    const user_id = this.currentUser.value['id'];
 
     return super.get(`http://localhost:3000/api/users/${user_id}/favorites`, {})
       .pipe(

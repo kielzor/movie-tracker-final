@@ -23,7 +23,9 @@ export class NavBarComponent implements OnInit {
     if (type === 'favorites') {
       this.user.getFavorites()
       .subscribe(movies => {
+
         if (movies.data) {
+          this.selectedType = type;
           this.moviesService.currentMovies.next(movies.data);
         } else {
           alert('You do not have any favorites');

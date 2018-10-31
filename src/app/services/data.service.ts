@@ -29,8 +29,9 @@ export class DataService {
       );
   }
 
-  public delete(url, body = {}, headers = {}): any {
-    return this.http.delete(url, body)
+  public delete(url, headers = {}): any {
+    console.log('delete url', url)
+    return this.http.delete(url, headers)
     .pipe(
       map(res => {
         console.log('delete response', res);
