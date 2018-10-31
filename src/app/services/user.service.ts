@@ -72,7 +72,22 @@ export class UserService extends DataService {
   }
 
   public deleteFavorite(movie): any {
-    console.log('delete', movie);
+    console.log('delete', movie.movie_id);
+    // const user_id = this.currentUser.value['id'];
+    const user_id = 1;
+    const movie_id = movie.movie_id;
+    return super.delete(`http://localhost:3000/api/users/${user_id}/favorites/${movie_id}`,
+    {
+      user_id,
+      movie_id
+    },
+    {
+      'Content-Type': 'application/json'
+    })
+    .pipe(
+      catchError(err => of(err)
+      )
+    );
   }
 
   public getFavorites(): any {

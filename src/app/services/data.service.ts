@@ -28,4 +28,15 @@ export class DataService {
         catchError(err => console.log('Invalid Entry'))
       );
   }
+
+  public delete(url, body = {}, headers = {}): any {
+    return this.http.delete(url, body)
+    .pipe(
+      map(res => {
+        console.log('delete response', res);
+        return res;
+      }),
+      catchError(err => console.log('Unable to delete favorite', err))
+    );
+  }
 }
