@@ -29,3 +29,7 @@
 .nav-bar button.selected {
   background-color: #cb931a;
 }
+
+.button-spacing {
+  margin-left: 3rem;
+}
