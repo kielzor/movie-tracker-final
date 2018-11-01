@@ -12,6 +12,12 @@ export class UserService extends DataService {
   currentUser = new BehaviorSubject({});
   getCurrentUser = this.currentUser.asObservable();
 
+  favorites = new BehaviorSubject([]);
+  getFavoriteArray = this.favorites.asObservable();
+
+  selectedType = new BehaviorSubject('now_playing');
+  getSelectedType = this.selectedType.asObservable();
+
   constructor(http: HttpClient) {
     super(http);
   }
@@ -48,23 +54,18 @@ export class UserService extends DataService {
         vote_average,
         overview
     })
-      .subscribe(res => {
-        return res;
-      }),
+    .pipe(
       catchError(err => of(err)
-      );
+      ));
   }
 
-  public deleteFavorite(movie): any {
+  public deleteFavorite(movie_id): any {
     const user_id = this.currentUser.value['id'];
-    const movie_id = movie.movie_id;
 
     return super.delete(`http://localhost:3000/api/users/${user_id}/favorites/${movie_id}`, {})
-      .subscribe(res => {
-        return res;
-      }),
-      catchError(err => of(err)
-      );
+    .pipe(
+    catchError(err => of(err)
+    ));
   }
 
   public getFavorites(): any {

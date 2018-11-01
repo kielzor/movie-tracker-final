@@ -3,7 +3,6 @@ import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
 import { map } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-card-container',
   templateUrl: './card-container.component.html',
@@ -12,32 +11,83 @@ import { map } from 'rxjs/operators';
 
 export class CardContainerComponent implements OnInit {
   cards = [];
+  faves = [];
+  selectedType: string;
 
   constructor(private moviesService: MoviesService, private user: UserService) { }
 
   ngOnInit() {
-    this.moviesService.getMovies('now_playing')
-      .subscribe(movies => {
-        movies.results.map(movie => movie.poster_path = `https://image.tmdb.org/t/p/w200${movie.poster_path}`);
-          this.moviesService.currentMovies.next(movies.results);
-        }
-      );
-
     this.moviesService.getCurrentMovies.subscribe(movie => {
       this.cards = movie;
     });
+
+    this.user.getFavoriteArray.subscribe(faves => {
+      this.faves = faves;
+    });
+
+    this.user.getSelectedType.subscribe(type => {
+      this.selectedType = type;
+    });
+
+    this.updateFavorites();
+
+    this.updateMovies('now_playing');
   }
 
   handleClick(card) {
-    this.user.getFavorites()
-    .subscribe(movies => {
-      const match = movies.data.find(movie => movie.id === card.id);
+    const match = this.faves.find(movie => movie.title === card.title);
 
-      if (match) {
-        this.user.deleteFavorite(card);
-      } else {
-        this.user.addFavorite(card);
-      }
+    if (match) {
+      this.user.deleteFavorite(match.movie_id).subscribe(res => {
+        this.updateFavorites();
+        this.updateMovies(this.selectedType);
+      });
+    } else {
+      this.user.addFavorite(card).subscribe(res => {
+        this.updateFavorites();
+      });
+    }
+  }
+
+  handleFaves(card) {
+    let match;
+
+    if (this.faves) {
+      match = this.faves.filter(movie => movie.title === card.title);
+    }
+
+    if (match && match[0]) {
+      return 'favorited';
+    }
+  }
+
+  updateFavorites() {
+    this.user.getFavorites().subscribe(res => {
+      this.user.favorites.next(res['data']);
     });
+  }
+
+  updateMovies(type) {
+    if (type === 'favorites') {
+      this.user.getFavorites()
+      .subscribe(movies => {
+
+        if (movies.data) {
+          this.user.selectedType.next(type);
+          this.moviesService.currentMovies.next(movies.data);
+        } else {
+          alert('You do not have any favorites');
+        }
+      });
+
+      return;
+    }
+
+    this.moviesService.getMovies(type)
+      .subscribe(movies => {
+        movies.results.map(movie => movie.poster_path = `https://image.tmdb.org/t/p/w200${movie.poster_path}`);
+        this.moviesService.currentMovies.next(movies.results);
+      }
+    );
   }
 }

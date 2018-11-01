@@ -1,10 +1,16 @@
 <div class='nav-bar'>
-  <button class='hidden-nav-btn'>View Favorites</button>
+  <div  class='hidden-nav-btn'>
+    <button>View Favorites</button>
+    <button>Log Out</button>
+  </div>
   <div class='nav-container'>
     <button [class.selected]='selectedType === "now_playing"' (click)='handleMovieType("now_playing")'>Now Playing</button>
     <button [class.selected]='selectedType === "popular"'(click)='handleMovieType("popular")'>Popular</button>
     <button [class.selected]='selectedType === "top_rated"' (click)='handleMovieType("top_rated")'>Top Rated</button>
     <button [class.selected]='selectedType === "upcoming"' (click)='handleMovieType("upcoming")'>Upcoming</button>
   </div>
-  <button [class.selected]='selectedType === "favorites"' (click)='handleMovieType("favorites")'>View Favorites</button>
+  <div>
+    <button [class.selected]='selectedType === "favorites"' (click)='handleMovieType("favorites")'>View Favorites</button>
+    <button (click)='handleLogout()'>Log Out</button>
+  </div>
 </div>

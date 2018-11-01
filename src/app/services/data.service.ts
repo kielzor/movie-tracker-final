@@ -22,7 +22,6 @@ export class DataService {
     return this.http.post(url, body, headers)
       .pipe(
         map(res => {
-          console.log('response', res);
           return res;
         }),
         catchError(err => console.log('Invalid Entry'))
@@ -34,7 +33,6 @@ export class DataService {
     return this.http.delete(url, headers)
     .pipe(
       map(res => {
-        console.log('delete response', res);
         return res;
       }),
       catchError(err => console.log('Unable to delete favorite', err))

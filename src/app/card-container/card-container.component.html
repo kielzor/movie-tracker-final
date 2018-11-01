@@ -5,6 +5,6 @@
     <p>{{ card['release_date'] }}</p>
     <p>{{ card['overview'] }}</p>
     <p>Rating: {{ card['vote_average'] }}</p>
-    <button (click)='handleClick(card)'>Favorite</button>
+    <button [ngClass]='handleFaves(card)' (click)='handleClick(card)'>Favorite</button>
   </div>
 </div>
