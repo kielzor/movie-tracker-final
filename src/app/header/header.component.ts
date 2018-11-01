@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -21,6 +18,5 @@ export class HeaderComponent implements OnInit {
       this.name = user['name'];
     });
   }
-
 }
 

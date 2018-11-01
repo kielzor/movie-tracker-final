@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { key } from '../../api-keys';
-import { catchError, map } from 'rxjs/operators';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { of, BehaviorSubject } from 'rxjs';
 import { DataService } from './data.service';
 
 

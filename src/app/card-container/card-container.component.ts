@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-container',
@@ -38,12 +37,12 @@ export class CardContainerComponent implements OnInit {
     const match = this.faves.find(movie => movie.title === card.title);
 
     if (match) {
-      this.user.deleteFavorite(match.movie_id).subscribe(res => {
+      this.user.deleteFavorite(match.movie_id).subscribe(() => {
         this.updateFavorites();
         this.updateMovies(this.selectedType);
       });
     } else {
-      this.user.addFavorite(card).subscribe(res => {
+      this.user.addFavorite(card).subscribe(() => {
         this.updateFavorites();
       });
     }
@@ -70,16 +69,10 @@ export class CardContainerComponent implements OnInit {
   updateMovies(type) {
     if (type === 'favorites') {
       this.user.getFavorites()
-      .subscribe(movies => {
-
-        if (movies.data) {
+        .subscribe(movies => {
           this.user.selectedType.next(type);
           this.moviesService.currentMovies.next(movies.data);
-        } else {
-          alert('You do not have any favorites');
-        }
-      });
-
+        });
       return;
     }
 

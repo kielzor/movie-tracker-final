@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgModel } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleLogin() {
-    this.user.getUser(this.userName, this.userPassword).subscribe(users => {
+    this.user.getUser().subscribe(users => {
       const currentUser = users['data'].find(user => {
         return (user.name === this.userName && user.password === this.userPassword);
       });

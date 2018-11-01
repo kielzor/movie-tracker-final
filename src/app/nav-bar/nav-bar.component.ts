@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService  } from '../services/movies.service';
-import { CardContainerComponent } from '../card-container/card-container.component';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 
@@ -11,7 +10,6 @@ import { Router } from '@angular/router';
 })
 
 export class NavBarComponent implements OnInit {
-  // cards: [];
   selectedType: string;
 
   constructor(private moviesService: MoviesService, private user: UserService, private router: Router) { }
@@ -25,16 +23,10 @@ export class NavBarComponent implements OnInit {
   handleMovieType(type): any {
     if (type === 'favorites') {
       this.user.getFavorites()
-      .subscribe(movies => {
-
-        if (movies.data) {
+        .subscribe(movies => {
           this.user.selectedType.next(type);
           this.moviesService.currentMovies.next(movies.data);
-        } else {
-          alert('You do not have any favorites');
-        }
-      });
-
+        });
       return;
     }
 

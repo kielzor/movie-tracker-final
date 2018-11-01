@@ -12,6 +12,7 @@
 
 .hidden-nav-btn {
   visibility: hidden;
+  margin-left: 3rem;
 }
 
 .nav-bar button {

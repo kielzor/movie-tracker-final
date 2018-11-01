@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { DataService } from './data.service';
 
@@ -22,7 +22,7 @@ export class UserService extends DataService {
     super(http);
   }
 
-  public getUser(name, password): any {
+  public getUser(): any {
     return super.get('http://localhost:3000/api/users/', {})
       .pipe(
         catchError(err => of(err)
