@@ -64,7 +64,7 @@ export class UserService extends DataService {
 
     return super.delete(`http://localhost:3000/api/users/${user_id}/favorites/${movie_id}`, {})
     .pipe(
-    catchError(err => of(err)
+      catchError(err => of(err)
     ));
   }
 

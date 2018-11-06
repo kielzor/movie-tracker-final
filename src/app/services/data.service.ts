@@ -24,7 +24,6 @@ export class DataService {
         map(res => {
           return res;
         }),
-        // catchError((err: any) => console.log('Invalid Entry'))
       );
   }
 
@@ -34,7 +33,6 @@ export class DataService {
       map(res => {
         return res;
       }),
-      // catchError((err: any) => console.log('Unable to delete favorite', err))
     );
   }
 }
