@@ -9,7 +9,7 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  public get(url, headers = {}): any {
+  public get(url, headers = {}) {
     return this.http.get(url, headers)
       .pipe(
         map(users => {
@@ -18,24 +18,23 @@ export class DataService {
       );
   }
 
-  public post(url, body = {}, headers = {}): any {
+  public post(url, body = {}, headers = {}) {
     return this.http.post(url, body, headers)
       .pipe(
         map(res => {
           return res;
         }),
-        catchError(err => console.log('Invalid Entry'))
+        // catchError((err: any) => console.log('Invalid Entry'))
       );
   }
 
-  public delete(url, headers = {}): any {
-    console.log('delete url', url)
+  public delete(url, headers = {}) {
     return this.http.delete(url, headers)
     .pipe(
       map(res => {
         return res;
       }),
-      catchError(err => console.log('Unable to delete favorite', err))
+      // catchError((err: any) => console.log('Unable to delete favorite', err))
     );
   }
 }
