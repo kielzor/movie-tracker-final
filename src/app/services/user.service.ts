@@ -34,10 +34,8 @@ export class UserService extends DataService {
     return super.post('http://localhost:3000/api/users/new',
       { name, email, password }, {})
       .pipe(
-        map(res => {
-          return res;
-        }),
-      );
+        catchError(err => of(err)
+        ));
   }
 
   public addFavorite(movie): any {
